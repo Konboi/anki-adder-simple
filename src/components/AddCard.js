@@ -1,16 +1,16 @@
 import React from "react";
 import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
 
-const AddCard = () => {
+const AddCard = ({ deckNamess }) => {
   return (
     <Container className="add-card">
       <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
         <Form>
-          <Form.Field
-            label="Current Deck"
-            control="select"
-            name="current-deck"
-          ></Form.Field>
+          <Form.Field label="Current Deck" control="select" name="current-deck">
+            {deckNamess.map(name => (
+              <option key={name}>{name}</option>
+            ))}
+          </Form.Field>
           <Form.Field
             label="Note Type"
             name="note-type"
