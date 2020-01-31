@@ -6,11 +6,14 @@ import ankiConnect from "./api/AnkiConnect";
 
 function App() {
   const [deckNames, setDeckNames] = useState([]);
+  const [modelNames, setModelNames] = useState([]);
 
   useEffect(() => {
     const inits = async () => {
       const deckNames = await ankiConnect.deckNames();
       setDeckNames(deckNames);
+      const modelNames = await ankiConnect.modelNames();
+      setModelNames(modelNames);
     };
     inits();
   }, []);
@@ -18,7 +21,7 @@ function App() {
   return (
     <div>
       <Header />
-      <AddCard deckNamess={deckNames} />
+      <AddCard deckNames={deckNames} modelNames={modelNames} />
       <SavedNote />
     </div>
   );

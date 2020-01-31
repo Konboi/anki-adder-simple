@@ -1,21 +1,21 @@
 import React from "react";
 import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
 
-const AddCard = ({ deckNamess }) => {
+const AddCard = ({ deckNames, modelNames }) => {
   return (
     <Container className="add-card">
       <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
         <Form>
           <Form.Field label="Current Deck" control="select" name="current-deck">
-            {deckNamess.map(name => (
+            {deckNames.map(name => (
               <option key={name}>{name}</option>
             ))}
           </Form.Field>
-          <Form.Field
-            label="Note Type"
-            name="note-type"
-            control="select"
-          ></Form.Field>
+          <Form.Field label="Note Type" name="note-type" control="select">
+            {modelNames.map(name => (
+              <option key={name}>{name}</option>
+            ))}
+          </Form.Field>
         </Form>
       </Container>
       <Container className="add-card-form" style={{ paddingTop: 20 + "px" }}>
