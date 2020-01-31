@@ -17,6 +17,20 @@ const version = () => {
   });
 };
 
+const deckNames = () => {
+  const req = {
+    action: "deckNames",
+    version: config.supportAnkiConnectVersion
+  };
+
+  return axios.post(uri, req).then(result => {
+    if (result.data.error) {
+      throw new AnkiConnectAPIError(result.data.error);
+    }
+    return result.data.result;
+  });
+};
+
 class AnkiConnectAPIError {
   constructor(message) {
     this.message = message;
@@ -24,4 +38,4 @@ class AnkiConnectAPIError {
   }
 }
 
-export default { version };
+export default { version, deckNames };
