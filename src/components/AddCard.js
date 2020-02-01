@@ -1,26 +1,42 @@
 import React from "react";
 import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
 
-const AddCard = ({ deckNames, modelNames }) => {
+const AddCard = ({ deckNames, modelNames, addCard }) => {
+  const add = event => {
+    event.preventDefault();
+
+    const deckName = event.target.deckName.value;
+    const modelName = event.target.modelName.value;
+    const front = event.target.front.value;
+    const back = event.target.back.value;
+    const tags = event.target.tags.value.trim().split(",");
+
+    console.log({ deckName, modelName, front, back, tags });
+    addCard({ deckName, modelName, front, back, tags });
+
+    event.target.front.value = "";
+    event.target.back.value = "";
+  };
+
   return (
     <Container className="add-card">
-      <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
-        <Form>
-          <Form.Field label="Current Deck" control="select" name="current-deck">
+      <Form onSubmit={add}>
+        <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
+          <Form.Field label="Current Deck" control="select" name="deckName">
             {deckNames.map(name => (
-              <option key={name}>{name}</option>
+              <option key={name} value={name}>
+                {name}
+              </option>
             ))}
           </Form.Field>
-          <Form.Field label="Note Type" name="note-type" control="select">
+          <Form.Field label="Note Type" name="modelName" control="select">
             {modelNames.map(name => (
               <option key={name}>{name}</option>
             ))}
           </Form.Field>
-        </Form>
-      </Container>
-      <Container className="add-card-form" style={{ paddingTop: 20 + "px" }}>
-        <Header size="medium">Add Card</Header>
-        <Form>
+        </Container>
+        <Container className="add-card-form" style={{ paddingTop: 20 + "px" }}>
+          <Header size="medium">Add Card</Header>
           <Form.Field inline>
             <label>Front:</label>
           </Form.Field>
@@ -36,8 +52,8 @@ const AddCard = ({ deckNames, modelNames }) => {
               Add Note
             </Button>
           </Form.Field>
-        </Form>
-      </Container>
+        </Container>
+      </Form>
     </Container>
   );
 };
