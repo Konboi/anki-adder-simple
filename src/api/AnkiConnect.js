@@ -45,14 +45,14 @@ const modelNames = () => {
   });
 };
 
-const addNote = ({ deckName, modelName, note }) => {
+const addNote = ({ note }) => {
   const req = {
     action: "addNote",
     version: config.supportAnkiConnectVersion,
     params: {
       note: {
-        deckName: deckName,
-        modelName: modelName,
+        deckName: note.deckName,
+        modelName: note.modelName,
         fields: {
           Front: note.front,
           Back: note.back
@@ -73,10 +73,10 @@ const addNote = ({ deckName, modelName, note }) => {
   });
 };
 
-const addNotes = ({ deckName, modelName, notes }) => {
+const addNotes = ({ notes }) => {
   const addNotes = notes.map(note => ({
-    deckName: deckName,
-    modelName: modelName,
+    deckName: note.deckName,
+    modelName: note.modelName,
     fields: {
       Front: note.front,
       Back: note.back
