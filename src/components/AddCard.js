@@ -11,7 +11,6 @@ const AddCard = ({ deckNames, modelNames, addCard }) => {
     const back = event.target.back.value;
     const tags = event.target.tags.value.trim().split(",");
 
-    console.log({ deckName, modelName, front, back, tags });
     addCard({ deckName, modelName, front, back, tags });
 
     event.target.front.value = "";
