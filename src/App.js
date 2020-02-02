@@ -3,6 +3,7 @@ import AddCard from "./components/AddCard";
 import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
 import ankiConnect from "./api/AnkiConnect";
+import { MemoryRouter as Router, Route } from "react-router";
 
 function App() {
   const [deckNames, setDeckNames] = useState([]);
@@ -40,15 +41,30 @@ function App() {
   };
 
   return (
-    <div>
+    <Router>
       <Header />
-      <AddCard
-        deckNames={deckNames}
-        modelNames={modelNames}
-        addCard={addCard}
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <AddCard
+            deckNames={deckNames}
+            modelNames={modelNames}
+            addCard={addCard}
+          />
+        )}
       />
-      <SavedNote notes={notes} deleteCard={deleteCard} resetCard={resetCard} />
-    </div>
+      <Route
+        path="/save"
+        render={() => (
+          <SavedNote
+            notes={notes}
+            deleteCard={deleteCard}
+            resetCard={resetCard}
+          />
+        )}
+      />
+    </Router>
   );
 }
 
