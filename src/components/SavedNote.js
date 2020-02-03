@@ -7,7 +7,6 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
   const saveToAnki = async () => {
     try {
       await ankiConnect.addNotes({ notes: notes });
-      resetCard();
     } catch (e) {
       console.log("save error:", e.message);
     }
