@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Table, Icon, Button } from "semantic-ui-react";
 import ankiConnect from "../api/AnkiConnect";
+import { CSVLink } from "react-csv";
 
 const SavedNote = ({ notes, deleteCard, resetCard }) => {
   const saveToAnki = async () => {
@@ -11,6 +12,11 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
       console.log("save error:", e.message);
     }
   };
+
+  const csvData = () => {
+    return notes.map(note => [note.front, note.back, note.tags.join(",")]);
+  };
+
   return (
     <Container className="saved-notes" style={{ paddingTop: 20 + "px" }}>
       <Container className="saved-card-list">
@@ -58,7 +64,14 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
           color="green"
           onClick={() => saveToAnki()}
         />
-        <Button content="Export Notes (CSV)" color="orange" />
+        <Button
+          as={CSVLink}
+          data={csvData()}
+          uFEFF={false}
+          filename={"anki-adder-simple-saved-notes.csv"}
+          content="Export Notes (CSV)"
+          color="orange"
+        />
       </Container>
     </Container>
   );
