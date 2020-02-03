@@ -6,7 +6,7 @@ const Header = () => {
   const [active, setActive] = useState("add-card");
 
   return (
-    <Container>
+    <Container style={{ paddingTop: 10 + "px" }}>
       <Menu tabular widths={2}>
         <Menu.Item
           name="Add Card"
