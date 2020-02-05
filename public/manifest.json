@@ -16,5 +16,8 @@
     "default_title": "anki-adder-simple",
     "default_popup": "index.html"
   },
-  "permissions": ["http://localhost:8765", "unlimitedStorage", "tabs"]
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["http://127.0.0.1/*", "unlimitedStorage", "tabs"]
 }
