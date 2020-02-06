@@ -4,11 +4,12 @@ import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
 import ankiConnect from "./api/AnkiConnect";
 import { MemoryRouter as Router, Route } from "react-router";
+import { connect } from "react-redux";
+import { initNotes } from "./reducer/noteReducer";
 
-function App() {
+const App = props => {
   const [deckNames, setDeckNames] = useState([]);
   const [modelNames, setModelNames] = useState([]);
-  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     const inits = async () => {
@@ -16,29 +17,11 @@ function App() {
       setDeckNames(deckNames);
       const modelNames = await ankiConnect.modelNames();
       setModelNames(modelNames);
+      props.initNotes();
     };
     inits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const addCard = ({ deckName, modelName, front, back, tags }) => {
-    setNotes(
-      notes.concat({
-        deckName: deckName,
-        modelName: modelName,
-        front: front,
-        back: back,
-        tags: tags
-      })
-    );
-  };
-
-  const deleteCard = front => {
-    setNotes(notes.filter(note => note.front !== front));
-  };
-
-  const resetCard = front => {
-    setNotes([]);
-  };
 
   return (
     <Router>
@@ -46,26 +29,17 @@ function App() {
       <Route
         exact
         path="/"
-        render={() => (
-          <AddCard
-            deckNames={deckNames}
-            modelNames={modelNames}
-            addCard={addCard}
-          />
-        )}
+        render={() => <AddCard deckNames={deckNames} modelNames={modelNames} />}
       />
-      <Route
-        path="/save"
-        render={() => (
-          <SavedNote
-            notes={notes}
-            deleteCard={deleteCard}
-            resetCard={resetCard}
-          />
-        )}
-      />
+      <Route path="/save" render={() => <SavedNote />} />
     </Router>
   );
-}
+};
 
-export default App;
+const mapToProps = state => {
+  return {
+    notes: state.notes
+  };
+};
+
+export default connect(mapToProps, { initNotes })(App);

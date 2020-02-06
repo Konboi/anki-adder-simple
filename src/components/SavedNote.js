@@ -2,8 +2,12 @@ import React from "react";
 import { Container, Table, Icon, Button } from "semantic-ui-react";
 import ankiConnect from "../api/AnkiConnect";
 import { CSVLink } from "react-csv";
+import { connect } from "react-redux";
+import { deleteNote, resetNotes } from "../reducer/noteReducer";
 
-const SavedNote = ({ notes, deleteCard, resetCard }) => {
+const SavedNote = props => {
+  const notes = props.notes;
+
   const saveToAnki = async () => {
     try {
       await ankiConnect.addNotes({ notes: notes });
@@ -40,7 +44,7 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
                   <Table.Cell>
                     <Icon
                       name="delete"
-                      onClick={() => deleteCard(note.front)}
+                      onClick={() => props.deleteNote(note.front)}
                     />
                   </Table.Cell>
                 </Table.Row>
@@ -56,7 +60,7 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
         <Button
           content="Delete All Notes"
           color="red"
-          onClick={() => resetCard()}
+          onClick={() => props.resetNotes()}
         />
         <Button
           content="Send Notes to Anki"
@@ -76,4 +80,10 @@ const SavedNote = ({ notes, deleteCard, resetCard }) => {
   );
 };
 
-export default SavedNote;
+const mapToProps = state => {
+  return {
+    notes: state.notes
+  };
+};
+
+export default connect(mapToProps, { deleteNote, resetNotes })(SavedNote);

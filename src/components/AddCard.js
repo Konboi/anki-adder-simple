@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { addNote } from "../reducer/noteReducer";
 
-const AddCard = ({ deckNames, modelNames, addCard }) => {
+const AddCard = props => {
   const add = event => {
     event.preventDefault();
 
@@ -11,7 +13,13 @@ const AddCard = ({ deckNames, modelNames, addCard }) => {
     const back = event.target.back.value;
     const tags = event.target.tags.value.trim().split(",");
 
-    addCard({ deckName, modelName, front, back, tags });
+    props.addNote({
+      deckName: deckName,
+      modelName: modelName,
+      front: front,
+      back: back,
+      tags: tags
+    });
 
     event.target.front.value = "";
     event.target.back.value = "";
@@ -22,14 +30,14 @@ const AddCard = ({ deckNames, modelNames, addCard }) => {
       <Form onSubmit={add}>
         <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
           <Form.Field label="Current Deck" control="select" name="deckName">
-            {deckNames.map(name => (
+            {props.deckNames.map(name => (
               <option key={name} value={name}>
                 {name}
               </option>
             ))}
           </Form.Field>
           <Form.Field label="Note Type" name="modelName" control="select">
-            {modelNames.map(name => (
+            {props.modelNames.map(name => (
               <option key={name}>{name}</option>
             ))}
           </Form.Field>
@@ -57,4 +65,4 @@ const AddCard = ({ deckNames, modelNames, addCard }) => {
   );
 };
 
-export default AddCard;
+export default connect(null, { addNote })(AddCard);
