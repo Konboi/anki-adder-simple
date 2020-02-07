@@ -2,21 +2,17 @@ import React, { useEffect, useState } from "react";
 import AddCard from "./components/AddCard";
 import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
-import ankiConnect from "./api/AnkiConnect";
 import { MemoryRouter as Router, Route } from "react-router";
 import { connect } from "react-redux";
 import { initNotes } from "./reducer/noteReducer";
+import { initDecks } from "./reducer/deckReducer";
+import { initModels } from "./reducer/modelReducer";
 
 const App = props => {
-  const [deckNames, setDeckNames] = useState([]);
-  const [modelNames, setModelNames] = useState([]);
-
   useEffect(() => {
     const inits = async () => {
-      const deckNames = await ankiConnect.deckNames();
-      setDeckNames(deckNames);
-      const modelNames = await ankiConnect.modelNames();
-      setModelNames(modelNames);
+      props.initDecks();
+      props.initModels();
       props.initNotes();
     };
     inits();
@@ -26,11 +22,7 @@ const App = props => {
   return (
     <Router>
       <Header />
-      <Route
-        exact
-        path="/"
-        render={() => <AddCard deckNames={deckNames} modelNames={modelNames} />}
-      />
+      <Route exact path="/" render={() => <AddCard />} />
       <Route path="/save" render={() => <SavedNote />} />
     </Router>
   );
@@ -42,4 +34,4 @@ const mapToProps = state => {
   };
 };
 
-export default connect(mapToProps, { initNotes })(App);
+export default connect(mapToProps, { initNotes, initDecks, initModels })(App);

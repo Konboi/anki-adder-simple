@@ -1,9 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import notesReducer from "../reducer/noteReducer";
 import thunk from "redux-thunk";
+import noteReducer from "../reducer/noteReducer";
+import deckReducer from "../reducer/deckReducer";
+import modelReducer from "../reducer/modelReducer";
 
 const reducer = combineReducers({
-  notes: notesReducer
+  notes: noteReducer,
+  decks: deckReducer,
+  models: modelReducer
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

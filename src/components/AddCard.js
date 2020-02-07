@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import { addNote } from "../reducer/noteReducer";
 
 const AddCard = props => {
+  const deckNames = props.decks;
+  const modelNames = props.models;
+
   const add = event => {
     event.preventDefault();
 
@@ -30,14 +33,14 @@ const AddCard = props => {
       <Form onSubmit={add}>
         <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
           <Form.Field label="Current Deck" control="select" name="deckName">
-            {props.deckNames.map(name => (
+            {deckNames.map(name => (
               <option key={name} value={name}>
                 {name}
               </option>
             ))}
           </Form.Field>
           <Form.Field label="Note Type" name="modelName" control="select">
-            {props.modelNames.map(name => (
+            {modelNames.map(name => (
               <option key={name}>{name}</option>
             ))}
           </Form.Field>
@@ -65,4 +68,11 @@ const AddCard = props => {
   );
 };
 
-export default connect(null, { addNote })(AddCard);
+const mapToProps = state => {
+  return {
+    decks: state.decks,
+    models: state.models
+  };
+};
+
+export default connect(mapToProps, { addNote })(AddCard);
