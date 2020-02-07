@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AddCard from "./components/AddCard";
 import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { initNotes } from "./reducer/noteReducer";
 import { initDecks } from "./reducer/deckReducer";
 import { initModels } from "./reducer/modelReducer";
+import { initCurrentDeck } from "./reducer/currentDeck";
+import { initCurrentModel } from "./reducer/currentModel";
 
 const App = props => {
   useEffect(() => {
@@ -14,6 +16,8 @@ const App = props => {
       props.initDecks();
       props.initModels();
       props.initNotes();
+      props.initCurrentDeck();
+      props.initCurrentModel();
     };
     inits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,4 +38,10 @@ const mapToProps = state => {
   };
 };
 
-export default connect(mapToProps, { initNotes, initDecks, initModels })(App);
+export default connect(mapToProps, {
+  initNotes,
+  initDecks,
+  initModels,
+  initCurrentDeck,
+  initCurrentModel
+})(App);

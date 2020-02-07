@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { addNote } from "../reducer/noteReducer";
+import { setCurrentDeck } from "../reducer/currentDeck";
+import { setCurrentModel } from "../reducer/currentModel";
 
 const AddCard = props => {
   const deckNames = props.decks;
@@ -75,4 +77,8 @@ const mapToProps = state => {
   };
 };
 
-export default connect(mapToProps, { addNote })(AddCard);
+export default connect(mapToProps, {
+  addNote,
+  setCurrentDeck,
+  setCurrentModel
+})(AddCard);
