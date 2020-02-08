@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { initNotes } from "./reducer/noteReducer";
 import { initDecks } from "./reducer/deckReducer";
 import { initModels } from "./reducer/modelReducer";
-import { initCurrentDeck } from "./reducer/currentDeck";
-import { initCurrentModel } from "./reducer/currentModel";
+import { initCurrentDeck } from "./reducer/currentDeckReducer";
+import { initCurrentModel } from "./reducer/currentModelReducer";
 
 const App = props => {
   useEffect(() => {

@@ -9,8 +9,8 @@ import {
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { addNote } from "../reducer/noteReducer";
-import { setCurrentDeck } from "../reducer/currentDeck";
-import { setCurrentModel } from "../reducer/currentModel";
+import { setCurrentDeck } from "../reducer/currentDeckReducer";
+import { setCurrentModel } from "../reducer/currentModelReducer";
 
 const AddCard = props => {
   const deck = props.currentDeck;

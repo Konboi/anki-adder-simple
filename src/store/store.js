@@ -3,8 +3,8 @@ import thunk from "redux-thunk";
 import noteReducer from "../reducer/noteReducer";
 import deckReducer from "../reducer/deckReducer";
 import modelReducer from "../reducer/modelReducer";
-import currentDeckReducer from "../reducer/currentDeck";
-import currentModelReducer from "../reducer/currentModel";
+import currentDeckReducer from "../reducer/currentDeckReducer";
+import currentModelReducer from "../reducer/currentModelReducer";
 
 const reducer = combineReducers({
   notes: noteReducer,
