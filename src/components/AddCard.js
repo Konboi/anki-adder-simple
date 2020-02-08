@@ -1,51 +1,83 @@
 import React from "react";
-import { Container, Form, Header, TextArea, Button } from "semantic-ui-react";
+import {
+  Container,
+  Form,
+  Header,
+  TextArea,
+  Button,
+  Select
+} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { addNote } from "../reducer/noteReducer";
 import { setCurrentDeck } from "../reducer/currentDeck";
 import { setCurrentModel } from "../reducer/currentModel";
 
 const AddCard = props => {
+  const deck = props.currentDeck;
+  const model = props.currentModel;
   const deckNames = props.decks;
   const modelNames = props.models;
 
-  const add = event => {
+  const add = async event => {
     event.preventDefault();
 
-    const deckName = event.target.deckName.value;
-    const modelName = event.target.modelName.value;
     const front = event.target.front.value;
     const back = event.target.back.value;
     const tags = event.target.tags.value.trim().split(",");
 
-    props.addNote({
-      deckName: deckName,
-      modelName: modelName,
-      front: front,
-      back: back,
-      tags: tags
-    });
+    const set = async () => {
+      props.addNote({
+        deckName: deck,
+        modelName: model,
+        front: front,
+        back: back,
+        tags: tags
+      });
 
-    event.target.front.value = "";
-    event.target.back.value = "";
+      event.target.front.value = "";
+      event.target.back.value = "";
+    };
+    await set();
+  };
+
+  const handleDeck = async (event, data) => {
+    const deck = data.value;
+    await props.setCurrentDeck(deck);
+  };
+
+  const handleModel = async (event, data) => {
+    const model = data.value;
+    await props.setCurrentModel(model);
   };
 
   return (
     <Container className="add-card">
       <Form onSubmit={add}>
         <Container className="select-deck" style={{ paddingTop: 20 + "px" }}>
-          <Form.Field label="Current Deck" control="select" name="deckName">
-            {deckNames.map(name => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </Form.Field>
-          <Form.Field label="Note Type" name="modelName" control="select">
-            {modelNames.map(name => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Field>
+          <Form.Field
+            label="Current Deck"
+            control={Select}
+            name="deckName"
+            options={deckNames.map(name => ({
+              key: name,
+              text: name,
+              value: name
+            }))}
+            value={deck}
+            onChange={handleDeck}
+          ></Form.Field>
+          <Form.Field
+            label="Note Type"
+            name="modelName"
+            control={Select}
+            options={modelNames.map(name => ({
+              key: name,
+              value: name,
+              text: name
+            }))}
+            value={model}
+            onChange={handleModel}
+          ></Form.Field>
         </Container>
         <Container className="add-card-form" style={{ paddingTop: 20 + "px" }}>
           <Header size="medium">Add Card</Header>
@@ -73,7 +105,9 @@ const AddCard = props => {
 const mapToProps = state => {
   return {
     decks: state.decks,
-    models: state.models
+    models: state.models,
+    currentDeck: state.currentDeck,
+    currentModel: state.currentModel
   };
 };
 
