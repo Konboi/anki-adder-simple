@@ -5,13 +5,14 @@
 
   "description": "a extension for add Anki from Chrome",
   "icons": {
-    "16": "./img/note16.png",
-    "48": "./img/note64.png",
-    "128": "./img/note128.png"
+    "16": "./img/icon16.png",
+    "48": "./img/icon48.png",
+    "128": "./img/icon128.png"
   },
   "browser_action": {
     "default_icon": {
-      "19": "./img/note64.png"
+      "16": "./img/icon16.png",
+      "32": "./img/icon32.png"
     },
     "default_title": "anki-adder-simple",
     "default_popup": "index.html"
