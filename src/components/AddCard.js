@@ -11,10 +11,12 @@ import { connect } from "react-redux";
 import { addNote } from "../reducer/noteReducer";
 import { setCurrentDeck } from "../reducer/currentDeckReducer";
 import { setCurrentModel } from "../reducer/currentModelReducer";
+import { setCurrentFront } from "../reducer/currentFrontReducer";
 
 const AddCard = props => {
   const deck = props.currentDeck;
   const model = props.currentModel;
+  const front = props.currentFront;
   const deckNames = props.decks;
   const modelNames = props.models;
 
@@ -36,6 +38,7 @@ const AddCard = props => {
 
       event.target.front.value = "";
       event.target.back.value = "";
+      props.setCurrentFront("");
     };
     await set();
   };
@@ -84,7 +87,7 @@ const AddCard = props => {
           <Form.Field inline>
             <label>Front:</label>
           </Form.Field>
-          <TextArea name="front" rows={2} />
+          <TextArea name="front" rows={2} defaultValue={front} />
           <label>Back:</label>
           <TextArea label="Back:" name="back" rows={2} />
           <Form.Field label="Tags:" name="tags" control="input" />
@@ -107,12 +110,14 @@ const mapToProps = state => {
     decks: state.decks,
     models: state.models,
     currentDeck: state.currentDeck,
-    currentModel: state.currentModel
+    currentModel: state.currentModel,
+    currentFront: state.currentFront
   };
 };
 
 export default connect(mapToProps, {
   addNote,
   setCurrentDeck,
-  setCurrentModel
+  setCurrentModel,
+  setCurrentFront
 })(AddCard);
