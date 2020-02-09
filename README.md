@@ -23,4 +23,4 @@ anki adder simple is Chrome extension for help add new words to Anki
 1. Install [anki connect](https://ankiweb.net/shared/info/2055492159)
 1. Clone this repository or download from release
 1. Run `npm run build`
-1. Load unpacked to `build` directory at [`chrome://extensions/`](`chrome://extensions/`)
+1. Open the [`chrome://extensions/`](`chrome://extensions/`) page and load `build` directory from `Load unpacked`
