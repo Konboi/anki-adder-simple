@@ -3,7 +3,7 @@
 const SetLocal = async (key, value) => {
   if (!chrome.storage || !chrome.storage.local) {
     console.log("not support chrome.storage.local");
-    throw "not support chrome.storage.local";
+    throw new ChromeAPIError("not support chrome.storage.local");
   }
 
   return new Promise((resolve, reject) => {
@@ -22,7 +22,7 @@ const SetLocal = async (key, value) => {
 const GetLocal = async key => {
   if (!chrome.storage || !chrome.storage.local) {
     console.log("not support chrome.storage.local");
-    throw "not support chrome.storage.local";
+    throw new ChromeAPIError("not support chrome.storage.local");
   }
 
   return new Promise(resolve => {
@@ -31,5 +31,12 @@ const GetLocal = async key => {
     });
   });
 };
+
+class ChromeAPIError {
+  constructor(message) {
+    this.message = message;
+    this.name = "ChromeAPIError";
+  }
+}
 
 export default { SetLocal, GetLocal };
