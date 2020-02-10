@@ -1,10 +1,10 @@
 /*global chrome*/
 import Chrome from "./api/Chrome";
-import { currentFrontStorageKey } from "./reducer/currentFrontReducer";
+import { currentNoteStorageKey } from "./reducer/noteReducer";
 
 const addToAnki = data => {
   const word = data.selectionText;
-  Chrome.SetLocal(currentFrontStorageKey, word);
+  Chrome.SetLocal(currentNoteStorageKey, { front: word, back: "" });
 };
 
 chrome.contextMenus.create({
