@@ -32,9 +32,15 @@ export const addNote = note => {
       if (!notes) {
         notes = [];
       }
-      notes = notes.filter(n =>
-        n.front !== note.front ? n : Object.assign(n, note)
-      );
+      if (notes.filter(n => n.front === note.front).length < 1) {
+        notes.push(note);
+      } else {
+        // overwrite
+        notes = notes.filter(n =>
+          n.front !== note.front ? n : Object.assign(n, note)
+        );
+      }
+
       await Chrome.SetLocal(notesStorageKey, notes);
     } catch (e) {
       throw e.message;
