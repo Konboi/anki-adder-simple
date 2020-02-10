@@ -103,4 +103,38 @@ export const initNotes = () => {
   };
 };
 
+export const initCurrentNote = () => {
+  return async dispatch => {
+    let note;
+    try {
+      note = await Chrome.GetLocal(currentNoteStorageKey);
+      if (!note) {
+        note = { front: "", back: "" };
+      }
+    } catch (e) {
+      throw e.message;
+    }
+
+    dispatch({
+      type: CurrentNoteReducerActionTypeSet,
+      data: note
+    });
+  };
+};
+
+export const setCurrentNote = note => {
+  return async dispatch => {
+    try {
+      await Chrome.SetLocal(currentNoteStorageKey, note);
+    } catch (e) {
+      throw e.message;
+    }
+
+    dispatch({
+      type: CurrentNoteReducerActionTypeSet,
+      data: note
+    });
+  };
+};
+
 export default reducer;
