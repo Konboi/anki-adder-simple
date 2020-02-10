@@ -6,6 +6,7 @@ import modelReducer from "../reducer/modelReducer";
 import currentDeckReducer from "../reducer/currentDeckReducer";
 import currentModelReducer from "../reducer/currentModelReducer";
 import currentFrontReducer from "../reducer/currentFrontReducer";
+import currentTagReducer from "../reducer/currentTagReducer";
 
 const reducer = combineReducers({
   notes: noteReducer,
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   models: modelReducer,
   currentDeck: currentDeckReducer,
   currentModel: currentModelReducer,
-  currentFront: currentFrontReducer
+  currentFront: currentFrontReducer,
+  currentTag: currentTagReducer
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

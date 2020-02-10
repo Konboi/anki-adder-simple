@@ -10,6 +10,7 @@ import { initModels } from "./reducer/modelReducer";
 import { initCurrentDeck } from "./reducer/currentDeckReducer";
 import { initCurrentModel } from "./reducer/currentModelReducer";
 import { initCurrentFront } from "./reducer/currentFrontReducer";
+import { initCurrentTag } from "./reducer/currentTagReducer";
 
 const App = props => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = props => {
       props.initCurrentDeck();
       props.initCurrentModel();
       props.initCurrentFront();
+      props.initCurrentTag();
     };
     inits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,5 +48,6 @@ export default connect(mapToProps, {
   initModels,
   initCurrentDeck,
   initCurrentModel,
-  initCurrentFront
+  initCurrentFront,
+  initCurrentTag
 })(App);

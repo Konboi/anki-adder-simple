@@ -12,11 +12,13 @@ import { addNote } from "../reducer/noteReducer";
 import { setCurrentDeck } from "../reducer/currentDeckReducer";
 import { setCurrentModel } from "../reducer/currentModelReducer";
 import { setCurrentFront } from "../reducer/currentFrontReducer";
+import { setCurrentTag } from "../reducer/currentTagReducer";
 
 const AddCard = props => {
   const deck = props.currentDeck;
   const model = props.currentModel;
   const front = props.currentFront;
+  const tag = props.currentTag;
   const deckNames = props.decks;
   const modelNames = props.models;
 
@@ -25,7 +27,7 @@ const AddCard = props => {
 
     const front = event.target.front.value;
     const back = event.target.back.value;
-    const tags = event.target.tags.value.trim().split(",");
+    const tags = event.target.tags.value.trim();
 
     const set = async () => {
       props.addNote({
@@ -33,8 +35,9 @@ const AddCard = props => {
         modelName: model,
         front: front,
         back: back,
-        tags: tags
+        tags: tags.split(",")
       });
+      props.setCurrentTag(tags);
 
       event.target.front.value = "";
       event.target.back.value = "";
@@ -90,7 +93,12 @@ const AddCard = props => {
           <TextArea name="front" rows={2} defaultValue={front} />
           <label>Back:</label>
           <TextArea label="Back:" name="back" rows={2} />
-          <Form.Field label="Tags:" name="tags" control="input" />
+          <Form.Field
+            label="Tags:"
+            name="tags"
+            control="input"
+            defaultValue={tag}
+          />
           <Form.Field inline>
             <label style={{ paddingTop: 10 + "px" }}>
               Connection Refused and no cached data.
@@ -111,7 +119,8 @@ const mapToProps = state => {
     models: state.models,
     currentDeck: state.currentDeck,
     currentModel: state.currentModel,
-    currentFront: state.currentFront
+    currentFront: state.currentFront,
+    currentTag: state.currentTag
   };
 };
 
@@ -119,5 +128,6 @@ export default connect(mapToProps, {
   addNote,
   setCurrentDeck,
   setCurrentModel,
-  setCurrentFront
+  setCurrentFront,
+  setCurrentTag
 })(AddCard);
