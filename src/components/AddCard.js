@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Form,
@@ -8,11 +8,19 @@ import {
   Select
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { addNote } from "../reducer/noteReducer";
-import { setCurrentDeck } from "../reducer/currentDeckReducer";
-import { setCurrentModel } from "../reducer/currentModelReducer";
-import { setCurrentFront } from "../reducer/currentFrontReducer";
-import { setCurrentTag } from "../reducer/currentTagReducer";
+import { initDecks } from "../reducer/deckReducer";
+import { initModels } from "../reducer/modelReducer";
+import { addNote, initNotes } from "../reducer/noteReducer";
+import { setCurrentDeck, initCurrentDeck } from "../reducer/currentDeckReducer";
+import {
+  setCurrentModel,
+  initCurrentModel
+} from "../reducer/currentModelReducer";
+import {
+  setCurrentFront,
+  initCurrentFront
+} from "../reducer/currentFrontReducer";
+import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
 const AddCard = props => {
   const deck = props.currentDeck;
@@ -21,6 +29,20 @@ const AddCard = props => {
   const tag = props.currentTag;
   const deckNames = props.decks;
   const modelNames = props.models;
+
+  useEffect(() => {
+    const inits = async () => {
+      props.initDecks();
+      props.initModels();
+      props.initNotes();
+      props.initCurrentDeck();
+      props.initCurrentModel();
+      props.initCurrentFront();
+      props.initCurrentTag();
+    };
+    inits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const add = async event => {
     event.preventDefault();
@@ -125,6 +147,13 @@ const mapToProps = state => {
 };
 
 export default connect(mapToProps, {
+  initNotes,
+  initDecks,
+  initModels,
+  initCurrentDeck,
+  initCurrentModel,
+  initCurrentFront,
+  initCurrentTag,
   addNote,
   setCurrentDeck,
   setCurrentModel,
