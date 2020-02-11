@@ -21,10 +21,6 @@ import {
   setCurrentModel,
   initCurrentModel
 } from "../reducer/currentModelReducer";
-import {
-  setCurrentFront,
-  initCurrentFront
-} from "../reducer/currentFrontReducer";
 import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
 const AddCard = props => {
@@ -166,12 +162,10 @@ export default connect(mapToProps, {
   initCurrentNote,
   initCurrentDeck,
   initCurrentModel,
-  initCurrentFront,
   initCurrentTag,
   addNote,
   setCurrentNote,
   setCurrentDeck,
   setCurrentModel,
-  setCurrentFront,
   setCurrentTag
 })(AddCard);

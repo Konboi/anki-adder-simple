@@ -5,7 +5,6 @@ import deckReducer from "../reducer/deckReducer";
 import modelReducer from "../reducer/modelReducer";
 import currentDeckReducer from "../reducer/currentDeckReducer";
 import currentModelReducer from "../reducer/currentModelReducer";
-import currentFrontReducer from "../reducer/currentFrontReducer";
 import currentTagReducer from "../reducer/currentTagReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -16,7 +15,6 @@ const reducer = combineReducers({
   currentNote: currentNoteReducer,
   currentDeck: currentDeckReducer,
   currentModel: currentModelReducer,
-  currentFront: currentFrontReducer,
   currentTag: currentTagReducer
 });
 
