@@ -10,22 +10,23 @@ import {
 import { connect } from "react-redux";
 import { initDecks } from "../reducer/deckReducer";
 import { initModels } from "../reducer/modelReducer";
-import { addNote, initNotes } from "../reducer/noteReducer";
+import {
+  addNote,
+  initNotes,
+  initCurrentNote,
+  setCurrentNote
+} from "../reducer/noteReducer";
 import { setCurrentDeck, initCurrentDeck } from "../reducer/currentDeckReducer";
 import {
   setCurrentModel,
   initCurrentModel
 } from "../reducer/currentModelReducer";
-import {
-  setCurrentFront,
-  initCurrentFront
-} from "../reducer/currentFrontReducer";
 import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
 const AddCard = props => {
+  const note = props.currentNote;
   const deck = props.currentDeck;
   const model = props.currentModel;
-  const front = props.currentFront;
   const tag = props.currentTag;
   const deckNames = props.decks;
   const modelNames = props.models;
@@ -35,6 +36,7 @@ const AddCard = props => {
       props.initDecks();
       props.initModels();
       props.initNotes();
+      props.initCurrentNote();
       props.initCurrentDeck();
       props.initCurrentModel();
       props.initCurrentFront();
@@ -60,6 +62,7 @@ const AddCard = props => {
         tags: tags.split(",")
       });
       props.setCurrentTag(tags);
+      props.setCurrentNote({ front: "", back: "" });
 
       event.target.front.value = "";
       event.target.back.value = "";
@@ -112,9 +115,14 @@ const AddCard = props => {
           <Form.Field inline>
             <label>Front:</label>
           </Form.Field>
-          <TextArea name="front" rows={2} defaultValue={front} />
+          <TextArea name="front" rows={2} defaultValue={note.front} />
           <label>Back:</label>
-          <TextArea label="Back:" name="back" rows={2} />
+          <TextArea
+            label="Back:"
+            name="back"
+            rows={2}
+            defaultValue={note.back}
+          />
           <Form.Field
             label="Tags:"
             name="tags"
@@ -139,6 +147,7 @@ const mapToProps = state => {
   return {
     decks: state.decks,
     models: state.models,
+    currentNote: state.currentNote,
     currentDeck: state.currentDeck,
     currentModel: state.currentModel,
     currentFront: state.currentFront,
@@ -150,13 +159,13 @@ export default connect(mapToProps, {
   initNotes,
   initDecks,
   initModels,
+  initCurrentNote,
   initCurrentDeck,
   initCurrentModel,
-  initCurrentFront,
   initCurrentTag,
   addNote,
+  setCurrentNote,
   setCurrentDeck,
   setCurrentModel,
-  setCurrentFront,
   setCurrentTag
 })(AddCard);

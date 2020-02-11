@@ -3,7 +3,8 @@ import { Container, Table, Icon, Button } from "semantic-ui-react";
 import ankiConnect from "../api/AnkiConnect";
 import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
-import { deleteNote, resetNotes } from "../reducer/noteReducer";
+import { deleteNote, resetNotes, setCurrentNote } from "../reducer/noteReducer";
+import { Link } from "react-router-dom";
 
 const SavedNote = props => {
   const notes = props.notes;
@@ -42,9 +43,34 @@ const SavedNote = props => {
                   <Table.Cell>{note.back}</Table.Cell>
                   <Table.Cell>{note.tags.join(",")}</Table.Cell>
                   <Table.Cell>
+                    <Link
+                      to={{
+                        pathname: "/"
+                      }}
+                    >
+                      <Icon
+                        name="edit"
+                        onClick={() =>
+                          props.setCurrentNote({
+                            front: note.front,
+                            back: note.back
+                          })
+                        }
+                      />
+                    </Link>
                     <Icon
                       name="delete"
-                      onClick={() => props.deleteNote(note.front)}
+                      color="red"
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            `Are you sure to delete ${note.front} ?`
+                          )
+                        ) {
+                          props.deleteNote(note.front);
+                        }
+                      }}
+                      style={{ paddingLeft: 10 + "px" }}
                     />
                   </Table.Cell>
                 </Table.Row>
@@ -86,4 +112,6 @@ const mapToProps = state => {
   };
 };
 
-export default connect(mapToProps, { deleteNote, resetNotes })(SavedNote);
+export default connect(mapToProps, { deleteNote, resetNotes, setCurrentNote })(
+  SavedNote
+);
