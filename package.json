@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@testing-library/user-event": "^8.1.0",
     "@types/chrome": "0.0.95",
     "axios": "^0.19.2",
     "axios-chrome-messaging-adapter": "^0.3.1",
