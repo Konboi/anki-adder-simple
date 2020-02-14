@@ -6,7 +6,6 @@ import modelReducer from "../reducer/modelReducer";
 import currentDeckReducer from "../reducer/currentDeckReducer";
 import currentModelReducer from "../reducer/currentModelReducer";
 import currentTagReducer from "../reducer/currentTagReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducer = combineReducers({
   notes: noteReducer,
@@ -18,6 +17,6 @@ const reducer = combineReducers({
   currentTag: currentTagReducer
 });
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
