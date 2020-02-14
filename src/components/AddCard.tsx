@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FormEvent } from "react";
 import {
   Container,
   Form,
   Header,
   TextArea,
   Button,
-  Select
+  Select,
+  DropdownProps
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { initDecks } from "../reducer/deckReducer";
@@ -23,7 +24,7 @@ import {
 } from "../reducer/currentModelReducer";
 import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
-const AddCard = props => {
+const AddCard = (props: any) => {
   const note = props.currentNote;
   const deck = props.currentDeck;
   const model = props.currentModel;
@@ -45,12 +46,12 @@ const AddCard = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const add = async event => {
+  const add = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const front = event.target.front.value;
-    const back = event.target.back.value;
-    const tags = event.target.tags.value.trim();
+    const front = (event.target as HTMLFormElement).front.value;
+    const back = (event.target as HTMLFormElement).back.value;
+    const tags = (event.target as HTMLFormElement).tags.value.trim();
 
     const set = async () => {
       props.addNote({
@@ -63,19 +64,19 @@ const AddCard = props => {
       props.setCurrentTag(tags);
       props.setCurrentNote({ front: "", back: "" });
 
-      event.target.front.value = "";
-      event.target.back.value = "";
+      (event.target as HTMLFormElement).front.value = "";
+      (event.target as HTMLFormElement).back.value = "";
       props.setCurrentFront("");
     };
     await set();
   };
 
-  const handleDeck = async (event, data) => {
+  const handleDeck = async (event: React.FormEvent, data: DropdownProps) => {
     const deck = data.value;
     await props.setCurrentDeck(deck);
   };
 
-  const handleModel = async (event, data) => {
+  const handleModel = async (event: React.FormEvent, data: DropdownProps) => {
     const model = data.value;
     await props.setCurrentModel(model);
   };
@@ -88,7 +89,7 @@ const AddCard = props => {
             label="Current Deck"
             control={Select}
             name="deckName"
-            options={deckNames.map(name => ({
+            options={deckNames.map((name: String) => ({
               key: name,
               text: name,
               value: name
@@ -100,7 +101,7 @@ const AddCard = props => {
             label="Note Type"
             name="modelName"
             control={Select}
-            options={modelNames.map(name => ({
+            options={modelNames.map((name: String) => ({
               key: name,
               value: name,
               text: name
@@ -142,7 +143,8 @@ const AddCard = props => {
   );
 };
 
-const mapToProps = state => {
+// TODO: state type
+const mapToProps = (state: any) => {
   return {
     decks: state.decks,
     models: state.models,
