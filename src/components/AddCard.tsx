@@ -1,4 +1,4 @@
-import React, { useEffect, FormEvent } from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Form,
@@ -143,7 +143,7 @@ const AddCard = (props: any) => {
   );
 };
 
-// TODO: state type
+// TODO: define state type
 const mapToProps = (state: any) => {
   return {
     decks: state.decks,
