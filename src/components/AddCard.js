@@ -39,7 +39,6 @@ const AddCard = props => {
       props.initCurrentNote();
       props.initCurrentDeck();
       props.initCurrentModel();
-      props.initCurrentFront();
       props.initCurrentTag();
     };
     inits();
