@@ -5,8 +5,9 @@ import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
 import { deleteNote, resetNotes, setCurrentNote } from "../reducer/noteReducer";
 import { Link } from "react-router-dom";
+import { Note } from "./Note";
 
-const SavedNote = props => {
+const SavedNote = (props: any) => {
   const notes = props.notes;
 
   const saveToAnki = async () => {
@@ -18,7 +19,11 @@ const SavedNote = props => {
   };
 
   const csvData = () => {
-    return notes.map(note => [note.front, note.back, note.tags.join(",")]);
+    return notes.map((note: Note) => [
+      note.front,
+      note.back,
+      note.tags.join(",")
+    ]);
   };
 
   return (
@@ -35,7 +40,7 @@ const SavedNote = props => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {notes.map(note => {
+            {notes.map((note: Note) => {
               return (
                 <Table.Row key={note.front}>
                   <Table.Cell>{note.deckName}</Table.Cell>
@@ -106,7 +111,8 @@ const SavedNote = props => {
   );
 };
 
-const mapToProps = state => {
+// TODO: define state type
+const mapToProps = (state: any) => {
   return {
     notes: state.notes
   };

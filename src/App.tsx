@@ -5,7 +5,7 @@ import SavedNote from "./components/SavedNote";
 import { MemoryRouter as Router, Route } from "react-router";
 import { connect } from "react-redux";
 
-const App = props => {
+const App = (props: any) => {
   return (
     <Router>
       <Header />
