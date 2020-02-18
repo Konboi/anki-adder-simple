@@ -1,11 +1,21 @@
 import Chrome from "../api/Chrome";
-
+import { Dispatch } from "redux";
+import { Note } from "../components/Note";
 const NoteReducerActionTypeSet = "NOTES_SET";
 const CurrentNoteReducerActionTypeSet = "CURRENT_NOTE_SET";
 const notesStorageKey = "notes";
 export const currentNoteStorageKey = "current-note";
 
-const reducer = (state = [], action) => {
+class notesAction {
+  type: string;
+  data: Note[];
+  constructor(type: string, data: Note[]) {
+    this.type = type;
+    this.data = data;
+  }
+}
+
+const reducer = (state = [], action: notesAction) => {
   switch (action.type) {
     case NoteReducerActionTypeSet:
       return action.data;
@@ -14,8 +24,19 @@ const reducer = (state = [], action) => {
   }
 };
 
-export const currentNoteReducer = (state = { front: "", back: "" }, action) => {
-  console.log("current note:", state, action);
+class currentNoteAction {
+  type: string;
+  data: Note;
+  constructor(type: string, data: Note) {
+    this.type = type;
+    this.data = data;
+  }
+}
+
+export const currentNoteReducer = (
+  state = { front: "", back: "" },
+  action: currentNoteAction
+) => {
   switch (action.type) {
     case CurrentNoteReducerActionTypeSet:
       return action.data;
@@ -24,19 +45,19 @@ export const currentNoteReducer = (state = { front: "", back: "" }, action) => {
   }
 };
 
-export const addNote = note => {
-  return async dispatch => {
+export const addNote = (note: Note) => {
+  return async (dispatch: Dispatch) => {
     let notes;
     try {
       notes = await Chrome.GetLocal(notesStorageKey);
       if (!notes) {
         notes = [];
       }
-      if (notes.filter(n => n.front === note.front).length < 1) {
+      if (notes.filter((n: Note) => n.front === note.front).length < 1) {
         notes.push(note);
       } else {
         // overwrite
-        notes = notes.filter(n =>
+        notes = notes.filter((n: Note) =>
           n.front !== note.front ? n : Object.assign(n, note)
         );
       }
@@ -53,8 +74,8 @@ export const addNote = note => {
   };
 };
 
-export const deleteNote = key => {
-  return async dispatch => {
+export const deleteNote = (key: string) => {
+  return async (dispatch: Dispatch) => {
     let notes;
     try {
       notes = await Chrome.GetLocal(notesStorageKey);
@@ -62,7 +83,7 @@ export const deleteNote = key => {
         return;
       }
 
-      notes = notes.filter(note => note.front !== key);
+      notes = notes.filter((note: Note) => note.front !== key);
       await Chrome.SetLocal(notesStorageKey, notes);
     } catch (e) {
       throw e.message;
@@ -76,7 +97,7 @@ export const deleteNote = key => {
 };
 
 export const resetNotes = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch) => {
     try {
       await Chrome.SetLocal(notesStorageKey, []);
     } catch (e) {
@@ -91,7 +112,7 @@ export const resetNotes = () => {
 };
 
 export const initNotes = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch) => {
     let notes;
     try {
       notes = await Chrome.GetLocal(notesStorageKey);
@@ -110,7 +131,7 @@ export const initNotes = () => {
 };
 
 export const initCurrentNote = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch) => {
     let note;
     try {
       note = await Chrome.GetLocal(currentNoteStorageKey);
@@ -128,8 +149,8 @@ export const initCurrentNote = () => {
   };
 };
 
-export const setCurrentNote = note => {
-  return async dispatch => {
+export const setCurrentNote = (note: Note) => {
+  return async (dispatch: Dispatch) => {
     try {
       await Chrome.SetLocal(currentNoteStorageKey, note);
     } catch (e) {
