@@ -1,8 +1,18 @@
 import ankiConnect from "../api/AnkiConnect";
+import { Dispatch } from "redux";
 
 const deckReducerActionTypeSet = "DECKS_SET";
 
-const reducer = (state = [], action) => {
+class Action {
+  type: string;
+  data: string[];
+  constructor(type: string, data: string[]) {
+    this.type = type;
+    this.data = data;
+  }
+}
+
+const reducer = (state = [], action: Action) => {
   switch (action.type) {
     case deckReducerActionTypeSet:
       return action.data;
@@ -12,7 +22,7 @@ const reducer = (state = [], action) => {
 };
 
 export const initDecks = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch) => {
     let decks;
     try {
       decks = await ankiConnect.deckNames();
