@@ -2,7 +2,7 @@
 import Chrome from "./api/Chrome";
 import { currentNoteStorageKey } from "./reducer/noteReducer";
 
-const addToAnki = (data: any) => {
+const addToAnki = data => {
   const word = data.selectionText;
   Chrome.SetLocal(currentNoteStorageKey, { front: word, back: "" });
 };
