@@ -1,18 +1,8 @@
 import ankiConnect from "../api/AnkiConnect";
-import { Dispatch } from "redux";
 
 const modelReducerActionTypeSet = "MODELS_SET";
 
-class Action {
-  type: string;
-  data: string[];
-  constructor(type: string, data: string[]) {
-    this.type = type;
-    this.data = data;
-  }
-}
-
-const reducer = (state = [], action: Action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
     case modelReducerActionTypeSet:
       return action.data;
@@ -22,7 +12,7 @@ const reducer = (state = [], action: Action) => {
 };
 
 export const initModels = () => {
-  return async (dispatch: Dispatch) => {
+  return async dispatch => {
     let models;
     try {
       models = await ankiConnect.modelNames();
