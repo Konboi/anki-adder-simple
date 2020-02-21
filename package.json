@@ -7,7 +7,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^10.0.0",
     "@types/chrome": "0.0.95",
-    "@types/react": "^16.9.19",
+    "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
     "axios": "^0.19.2",
     "axios-chrome-messaging-adapter": "^0.3.1",
