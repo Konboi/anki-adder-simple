@@ -1,6 +1,6 @@
 import Chrome from "../api/Chrome";
 import { Dispatch } from "redux";
-import { Note } from "../components/Note";
+import Note from "../model/Note";
 
 const NoteReducerActionTypeSet = "NOTES_SET";
 const CurrentNoteReducerActionTypeSet = "CURRENT_NOTE_SET";

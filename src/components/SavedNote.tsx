@@ -5,7 +5,7 @@ import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
 import { deleteNote, resetNotes, setCurrentNote } from "../reducer/noteReducer";
 import { Link } from "react-router-dom";
-import { Note } from "./Note";
+import Note from "../model/Note";
 
 const SavedNote = (props: any) => {
   const notes = props.notes;
