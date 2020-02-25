@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config";
+import Note from "../model/Note";
 
 const uri = `${config.defaultAnkiConnectUri}:${config.defaultAnkiConnectPort}`;
 
@@ -45,7 +46,7 @@ const modelNames = () => {
   });
 };
 
-const addNote = ({ note }) => {
+const addNote = (note: Note) => {
   const req = {
     action: "addNote",
     version: config.supportAnkiConnectVersion,
@@ -73,7 +74,7 @@ const addNote = ({ note }) => {
   });
 };
 
-const addNotes = ({ notes }) => {
+const addNotes = (notes: Note[]) => {
   const addNotes = notes.map(note => ({
     deckName: note.deckName,
     modelName: note.modelName,
@@ -104,7 +105,10 @@ const addNotes = ({ notes }) => {
 };
 
 class AnkiConnectAPIError {
-  constructor(message) {
+  message: string;
+  name: string;
+
+  constructor(message: string) {
     this.message = message;
     this.name = "AnkiConnectAPIError";
   }
