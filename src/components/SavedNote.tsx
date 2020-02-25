@@ -12,7 +12,7 @@ const SavedNote = (props: any) => {
 
   const saveToAnki = async () => {
     try {
-      await ankiConnect.addNotes({ notes: notes });
+      await ankiConnect.addNotes(notes);
     } catch (e) {
       console.log("save error:", e.message);
     }
