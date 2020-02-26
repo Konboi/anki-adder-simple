@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
 import { MemoryRouter as Router, Route } from "react-router";
 
-const App = (props: any) => {
+const App = () => {
   return (
     <Router>
       <Header />

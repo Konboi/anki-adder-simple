@@ -26,7 +26,7 @@ import {
 } from "../reducer/currentModelReducer";
 import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
-const AddCard = (props: any) => {
+const AddCard = () => {
   const dispatch = useDispatch();
   const note = useSelector((state: RootState) => state.currentNote);
   const deck = useSelector((state: RootState) => state.currentDeck);
@@ -72,7 +72,6 @@ const AddCard = (props: any) => {
 
       (event.target as HTMLFormElement).front.value = "";
       (event.target as HTMLFormElement).back.value = "";
-      props.setCurrentFront("");
     };
     await set();
   };

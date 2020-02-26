@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Note from "../model/Note";
 import { RootState } from "../store/store";
 
-const SavedNote = (props: any) => {
+const SavedNote = () => {
   const dispatch = useDispatch();
   const notes = useSelector((state: RootState) => state.notes);
 
