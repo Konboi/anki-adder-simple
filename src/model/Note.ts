@@ -5,11 +5,11 @@ class Note {
   back: string;
   tags: string[];
   constructor(
-    deckName: string,
-    modelName: string,
-    front: string,
-    back: string,
-    tags: string[]
+    deckName: string = "",
+    modelName: string = "",
+    front: string = "",
+    back: string = "",
+    tags: string[] = []
   ) {
     this.deckName = deckName;
     this.modelName = modelName;
