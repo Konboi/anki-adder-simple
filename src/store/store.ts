@@ -6,6 +6,17 @@ import modelReducer from "../reducer/modelReducer";
 import currentDeckReducer from "../reducer/currentDeckReducer";
 import currentModelReducer from "../reducer/currentModelReducer";
 import currentTagReducer from "../reducer/currentTagReducer";
+import Note from "../model/Note";
+
+export interface RootState {
+  notes: Note[];
+  decks: string[];
+  models: string[];
+  currentNote: Note;
+  currentDeck: string;
+  currentModel: string;
+  currentTag: string;
+}
 
 const reducer = combineReducers({
   notes: noteReducer,
