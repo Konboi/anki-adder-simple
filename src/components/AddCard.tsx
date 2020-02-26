@@ -8,7 +8,9 @@ import {
   Select,
   DropdownProps
 } from "semantic-ui-react";
-import { connect } from "react-redux";
+import { RootState } from "../store/store";
+import { useSelector, useDispatch } from "react-redux";
+import Note from "../model/Note";
 import { initDecks } from "../reducer/deckReducer";
 import { initModels } from "../reducer/modelReducer";
 import {
@@ -25,22 +27,23 @@ import {
 import { setCurrentTag, initCurrentTag } from "../reducer/currentTagReducer";
 
 const AddCard = (props: any) => {
-  const note = props.currentNote;
-  const deck = props.currentDeck;
-  const model = props.currentModel;
-  const tag = props.currentTag;
-  const deckNames = props.decks;
-  const modelNames = props.models;
+  const dispatch = useDispatch();
+  const note = useSelector((state: RootState) => state.currentNote);
+  const deck = useSelector((state: RootState) => state.currentDeck);
+  const model = useSelector((state: RootState) => state.currentModel);
+  const tag = useSelector((state: RootState) => state.currentTag);
+  const deckNames = useSelector((state: RootState) => state.decks);
+  const modelNames = useSelector((state: RootState) => state.models);
 
   useEffect(() => {
     const inits = async () => {
-      props.initDecks();
-      props.initModels();
-      props.initNotes();
-      props.initCurrentNote();
-      props.initCurrentDeck();
-      props.initCurrentModel();
-      props.initCurrentTag();
+      dispatch(initDecks());
+      dispatch(initModels());
+      dispatch(initNotes());
+      dispatch(initCurrentNote());
+      dispatch(initCurrentDeck());
+      dispatch(initCurrentModel());
+      dispatch(initCurrentTag());
     };
     inits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,15 +57,18 @@ const AddCard = (props: any) => {
     const tags = (event.target as HTMLFormElement).tags.value.trim();
 
     const set = async () => {
-      props.addNote({
-        deckName: deck,
-        modelName: model,
-        front: front,
-        back: back,
-        tags: tags.split(",")
-      });
-      props.setCurrentTag(tags);
-      props.setCurrentNote({ front: "", back: "" });
+      dispatch(
+        addNote({
+          deckName: deck,
+          modelName: model,
+          front: front,
+          back: back,
+          tags: tags.split(",")
+        })
+      );
+      dispatch(setCurrentTag(tags));
+
+      dispatch(setCurrentNote(new Note()));
 
       (event.target as HTMLFormElement).front.value = "";
       (event.target as HTMLFormElement).back.value = "";
@@ -72,13 +78,13 @@ const AddCard = (props: any) => {
   };
 
   const handleDeck = async (event: React.FormEvent, data: DropdownProps) => {
-    const deck = data.value;
-    await props.setCurrentDeck(deck);
+    const deck = data.value as string;
+    await dispatch(setCurrentDeck(deck));
   };
 
   const handleModel = async (event: React.FormEvent, data: DropdownProps) => {
-    const model = data.value;
-    await props.setCurrentModel(model);
+    const model = data.value as string;
+    await dispatch(setCurrentModel(model));
   };
 
   return (
@@ -143,30 +149,4 @@ const AddCard = (props: any) => {
   );
 };
 
-// TODO: define state type
-const mapToProps = (state: any) => {
-  return {
-    decks: state.decks,
-    models: state.models,
-    currentNote: state.currentNote,
-    currentDeck: state.currentDeck,
-    currentModel: state.currentModel,
-    currentFront: state.currentFront,
-    currentTag: state.currentTag
-  };
-};
-
-export default connect(mapToProps, {
-  initNotes,
-  initDecks,
-  initModels,
-  initCurrentNote,
-  initCurrentDeck,
-  initCurrentModel,
-  initCurrentTag,
-  addNote,
-  setCurrentNote,
-  setCurrentDeck,
-  setCurrentModel,
-  setCurrentTag
-})(AddCard);
+export default AddCard;
