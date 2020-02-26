@@ -2,13 +2,15 @@ import React from "react";
 import { Container, Table, Icon, Button } from "semantic-ui-react";
 import ankiConnect from "../api/AnkiConnect";
 import { CSVLink } from "react-csv";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteNote, resetNotes, setCurrentNote } from "../reducer/noteReducer";
 import { Link } from "react-router-dom";
 import Note from "../model/Note";
+import { RootState } from "../store/store";
 
 const SavedNote = (props: any) => {
-  const notes = props.notes;
+  const dispatch = useDispatch();
+  const notes = useSelector((state: RootState) => state.notes);
 
   const saveToAnki = async () => {
     try {
@@ -56,10 +58,11 @@ const SavedNote = (props: any) => {
                       <Icon
                         name="edit"
                         onClick={() =>
-                          props.setCurrentNote({
-                            front: note.front,
-                            back: note.back
-                          })
+                          dispatch(
+                            setCurrentNote(
+                              new Note("", "", note.front, note.back, [])
+                            )
+                          )
                         }
                       />
                     </Link>
@@ -72,7 +75,7 @@ const SavedNote = (props: any) => {
                             `Are you sure to delete ${note.front} ?`
                           )
                         ) {
-                          props.deleteNote(note.front);
+                          dispatch(deleteNote(note.front));
                         }
                       }}
                       style={{ paddingLeft: 10 + "px" }}
@@ -91,7 +94,7 @@ const SavedNote = (props: any) => {
         <Button
           content="Delete All Notes"
           color="red"
-          onClick={() => props.resetNotes()}
+          onClick={() => dispatch(resetNotes())}
         />
         <Button
           content="Send Notes to Anki"
@@ -111,13 +114,4 @@ const SavedNote = (props: any) => {
   );
 };
 
-// TODO: define state type
-const mapToProps = (state: any) => {
-  return {
-    notes: state.notes
-  };
-};
-
-export default connect(mapToProps, { deleteNote, resetNotes, setCurrentNote })(
-  SavedNote
-);
+export default SavedNote;
