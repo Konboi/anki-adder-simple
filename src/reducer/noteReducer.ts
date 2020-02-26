@@ -1,6 +1,6 @@
 import Chrome from "../api/Chrome";
 import { Dispatch } from "redux";
-import { Note } from "../components/Note";
+import Note from "../model/Note";
 
 const NoteReducerActionTypeSet = "NOTES_SET";
 const CurrentNoteReducerActionTypeSet = "CURRENT_NOTE_SET";
@@ -27,9 +27,9 @@ const reducer = (state = [], action: noteAction) => {
 
 export const addNote = (note: Note) => {
   return async (dispatch: Dispatch) => {
-    let notes;
+    let notes: Note[];
     try {
-      notes = await Chrome.GetLocal(notesStorageKey);
+      notes = (await Chrome.GetLocal(notesStorageKey)) as Note[];
       if (!notes) {
         notes = [];
       }
@@ -56,9 +56,9 @@ export const addNote = (note: Note) => {
 
 export const deleteNote = (key: string) => {
   return async (dispatch: Dispatch) => {
-    let notes;
+    let notes: Note[];
     try {
-      notes = await Chrome.GetLocal(notesStorageKey);
+      notes = (await Chrome.GetLocal(notesStorageKey)) as Note[];
       if (!notes) {
         return;
       }

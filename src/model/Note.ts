@@ -1,4 +1,4 @@
-export class Note {
+class Note {
   deckName: string;
   modelName: string;
   front: string;
@@ -18,3 +18,5 @@ export class Note {
     this.tags = tags;
   }
 }
+
+export default Note;
