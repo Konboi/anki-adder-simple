@@ -3,7 +3,6 @@ import AddCard from "./components/AddCard";
 import Header from "./components/Header";
 import SavedNote from "./components/SavedNote";
 import { MemoryRouter as Router, Route } from "react-router";
-import { connect } from "react-redux";
 
 const App = (props: any) => {
   return (
@@ -15,4 +14,4 @@ const App = (props: any) => {
   );
 };
 
-export default connect(null, {})(App);
+export default App;
