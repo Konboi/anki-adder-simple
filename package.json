@@ -53,7 +53,7 @@
     "rimraf": "3.0.2",
     "source-map-loader": "0.2.4",
     "ts-loader": "6.2.2",
-    "typescript": "3.9.2",
+    "typescript": "3.9.3",
     "webpack-cli": "3.3.11"
   }
 }
