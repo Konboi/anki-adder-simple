@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "5.11.1",
     "@testing-library/react": "10.4.7",
-    "@testing-library/user-event": "12.0.15",
+    "@testing-library/user-event": "12.0.17",
     "@types/chrome": "0.0.122",
     "@types/react": "16.9.43",
     "@types/react-dom": "16.9.8",
