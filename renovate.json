@@ -6,7 +6,10 @@
   "packageRules": [
     {
       "automerge": true,
-      "updateTypes": ["minor", "patch", "pin", "digest"]
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "schedule": [
+        "before 10am on the first day of the month"
+      ]
     }
   ]
 }
