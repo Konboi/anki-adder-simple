@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "5.11.10",
-    "@testing-library/react": "11.2.5",
+    "@testing-library/react": "11.2.6",
     "@testing-library/user-event": "12.8.0",
     "@types/chrome": "0.0.130",
     "@types/react": "17.0.2",
