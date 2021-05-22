@@ -6,8 +6,6 @@
     "@testing-library/jest-dom": "5.12.0",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "13.1.9",
-    "@types/chrome": "0.0.130",
-    "@types/react": "17.0.2",
     "@types/chrome": "0.0.143",
     "@types/react": "16.14.8",
     "@types/react-dom": "17.0.5",
@@ -53,8 +51,8 @@
     "@types/react-router-dom": "5.1.7",
     "npm-run-all": "4.1.5",
     "rimraf": "3.0.2",
-    "source-map-loader": "2.0.2",
     "ts-loader": "9.2.2",
+    "source-map-loader": "3.0.0",
     "typescript": "4.2.3",
     "webpack-cli": "4.6.0"
   }
