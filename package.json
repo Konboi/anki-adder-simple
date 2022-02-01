@@ -7,7 +7,7 @@
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
     "@types/react": "17.0.38",
-    "@types/chrome": "0.0.174",
+    "@types/chrome": "0.0.177",
     "@types/react-dom": "17.0.11",
     "axios": "0.21.4",
     "react": "17.0.2",
