@@ -1,4 +1,4 @@
-import ankiConnect from "../api/AnkiConnect";
+import { modelNames } from "../api/AnkiConnect";
 import { Dispatch } from "redux";
 
 const modelReducerActionTypeSet = "MODELS_SET";
@@ -25,7 +25,7 @@ export const initModels = () => {
   return async (dispatch: Dispatch) => {
     let models;
     try {
-      models = await ankiConnect.modelNames();
+      models = await modelNames();
       if (!models) {
         models = [];
       }
@@ -35,7 +35,7 @@ export const initModels = () => {
 
     dispatch({
       type: modelReducerActionTypeSet,
-      data: models
+      data: models,
     });
   };
 };

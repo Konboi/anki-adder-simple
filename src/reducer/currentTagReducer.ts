@@ -1,4 +1,4 @@
-import Chrome from "../api/Chrome";
+import { GetLocal, SetLocal } from "../api/Chrome";
 import { Dispatch } from "redux";
 
 const currentTagReducerActionTypeSet = "CURRENT_TAG_SET";
@@ -25,14 +25,14 @@ const reducer = (state = [], action: Action) => {
 export const setCurrentTag = (tag: string[]) => {
   return async (dispatch: Dispatch) => {
     try {
-      await Chrome.SetLocal(currentTagStorageKey, tag);
+      await SetLocal(currentTagStorageKey, tag);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: currentTagReducerActionTypeSet,
-      data: tag
+      data: tag,
     });
   };
 };
@@ -41,7 +41,7 @@ export const initCurrentTag = () => {
   return async (dispatch: Dispatch) => {
     let tag;
     try {
-      tag = await Chrome.GetLocal(currentTagStorageKey);
+      tag = await GetLocal(currentTagStorageKey);
       if (!tag) {
         tag = "";
       }
@@ -51,7 +51,7 @@ export const initCurrentTag = () => {
 
     dispatch({
       type: currentTagReducerActionTypeSet,
-      data: tag
+      data: tag,
     });
   };
 };
