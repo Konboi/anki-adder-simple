@@ -1,16 +1,20 @@
 import axios from "axios";
-import config from "../config";
+import {
+  defaultAnkiConnectUri,
+  defaultAnkiConnectPort,
+  supportAnkiConnectVersion,
+} from "../config";
 import Note from "../model/Note";
 
-const uri = `${config.defaultAnkiConnectUri}:${config.defaultAnkiConnectPort}`;
+const uri = `${defaultAnkiConnectUri}:${defaultAnkiConnectPort}`;
 
 const version = () => {
   const req = {
     action: "version",
-    version: config.supportAnkiConnectVersion
+    version: supportAnkiConnectVersion,
   };
 
-  return axios.post(uri, req).then(result => {
+  return axios.post(uri, req).then((result) => {
     if (result.data.error) {
       throw new AnkiConnectAPIError(result.data.error);
     }
@@ -21,10 +25,10 @@ const version = () => {
 const deckNames = () => {
   const req = {
     action: "deckNames",
-    version: config.supportAnkiConnectVersion
+    version: supportAnkiConnectVersion,
   };
 
-  return axios.post(uri, req).then(result => {
+  return axios.post(uri, req).then((result) => {
     if (result.data.error) {
       throw new AnkiConnectAPIError(result.data.error);
     }
@@ -35,10 +39,10 @@ const deckNames = () => {
 const modelNames = () => {
   const req = {
     action: "modelNames",
-    version: config.supportAnkiConnectVersion
+    version: supportAnkiConnectVersion,
   };
 
-  return axios.post(uri, req).then(result => {
+  return axios.post(uri, req).then((result) => {
     if (result.data.error) {
       throw new AnkiConnectAPIError(result.data.error);
     }
@@ -49,24 +53,24 @@ const modelNames = () => {
 const addNote = (note: Note) => {
   const req = {
     action: "addNote",
-    version: config.supportAnkiConnectVersion,
+    version: supportAnkiConnectVersion,
     params: {
       note: {
         deckName: note.deckName,
         modelName: note.modelName,
         fields: {
           Front: note.front,
-          Back: note.back
+          Back: note.back,
         },
         tags: [...note.tags],
         options: {
-          allowDuplicate: false
-        }
-      }
-    }
+          allowDuplicate: false,
+        },
+      },
+    },
   };
 
-  return axios.post(uri, req).then(result => {
+  return axios.post(uri, req).then((result) => {
     if (result.data.error) {
       throw new AnkiConnectAPIError(result.data.error);
     }
@@ -75,28 +79,28 @@ const addNote = (note: Note) => {
 };
 
 const addNotes = (notes: Note[]) => {
-  const addNotes = notes.map(note => ({
+  const addNotes = notes.map((note) => ({
     deckName: note.deckName,
     modelName: note.modelName,
     fields: {
       Front: note.front,
-      Back: note.back
+      Back: note.back,
     },
     tags: [...note.tags],
     options: {
-      allowDuplicate: false
-    }
+      allowDuplicate: false,
+    },
   }));
 
   const req = {
     action: "addNotes",
-    version: config.supportAnkiConnectVersion,
+    version: supportAnkiConnectVersion,
     params: {
-      notes: addNotes
-    }
+      notes: addNotes,
+    },
   };
 
-  return axios.post(uri, req).then(result => {
+  return axios.post(uri, req).then((result) => {
     if (result.data.error) {
       throw new AnkiConnectAPIError(result.data.error);
     }
@@ -114,4 +118,4 @@ class AnkiConnectAPIError {
   }
 }
 
-export default { version, deckNames, modelNames, addNote, addNotes };
+export { version, deckNames, modelNames, addNote, addNotes };

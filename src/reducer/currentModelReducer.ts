@@ -1,4 +1,4 @@
-import Chrome from "../api/Chrome";
+import { GetLocal, SetLocal } from "../api/Chrome";
 import { Dispatch } from "redux";
 
 const currentModelReducerActionTypeSet = "CURRENT_MODEL_SET";
@@ -25,14 +25,14 @@ const reducer = (state: string = "", action: Action) => {
 export const setCurrentModel = (model: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      await Chrome.SetLocal(CurrentModelStorageKey, model);
+      await SetLocal(CurrentModelStorageKey, model);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: currentModelReducerActionTypeSet,
-      data: model
+      data: model,
     });
   };
 };
@@ -41,7 +41,7 @@ export const initCurrentModel = () => {
   return async (dispatch: Dispatch) => {
     let model;
     try {
-      model = await Chrome.GetLocal(CurrentModelStorageKey);
+      model = await GetLocal(CurrentModelStorageKey);
       if (!model) {
         model = "";
       }
@@ -51,7 +51,7 @@ export const initCurrentModel = () => {
 
     dispatch({
       type: currentModelReducerActionTypeSet,
-      data: model
+      data: model,
     });
   };
 };

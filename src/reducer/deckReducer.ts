@@ -1,4 +1,4 @@
-import ankiConnect from "../api/AnkiConnect";
+import { deckNames } from "../api/AnkiConnect";
 import { Dispatch } from "redux";
 
 const deckReducerActionTypeSet = "DECKS_SET";
@@ -25,7 +25,7 @@ export const initDecks = () => {
   return async (dispatch: Dispatch) => {
     let decks;
     try {
-      decks = await ankiConnect.deckNames();
+      decks = await deckNames();
       if (!decks) {
         decks = [];
       }
@@ -35,7 +35,7 @@ export const initDecks = () => {
 
     dispatch({
       type: deckReducerActionTypeSet,
-      data: decks
+      data: decks,
     });
   };
 };

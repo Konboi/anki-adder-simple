@@ -1,4 +1,4 @@
-import Chrome from "../api/Chrome";
+import { GetLocal, SetLocal } from "../api/Chrome";
 import { Dispatch } from "redux";
 
 const currentDeckReducerActionTypeSet = "CURRENT_DECK_SET";
@@ -25,14 +25,14 @@ const reducer = (state: string = "", action: Action) => {
 export const setCurrentDeck = (deck: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      await Chrome.SetLocal(CurrentDeckStorageKey, deck);
+      await SetLocal(CurrentDeckStorageKey, deck);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: currentDeckReducerActionTypeSet,
-      data: deck
+      data: deck,
     });
   };
 };
@@ -41,7 +41,7 @@ export const initCurrentDeck = () => {
   return async (dispatch: Dispatch) => {
     let deck;
     try {
-      deck = await Chrome.GetLocal(CurrentDeckStorageKey);
+      deck = await GetLocal(CurrentDeckStorageKey);
       if (!deck) {
         deck = "";
       }
@@ -51,7 +51,7 @@ export const initCurrentDeck = () => {
 
     dispatch({
       type: currentDeckReducerActionTypeSet,
-      data: deck
+      data: deck,
     });
   };
 };

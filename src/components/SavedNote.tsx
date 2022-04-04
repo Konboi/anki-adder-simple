@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Table, Icon, Button } from "semantic-ui-react";
-import ankiConnect from "../api/AnkiConnect";
+import {addNotes} from "../api/AnkiConnect";
 import { CSVLink } from "react-csv";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteNote, resetNotes, setCurrentNote } from "../reducer/noteReducer";
@@ -14,7 +14,7 @@ const SavedNote = () => {
 
   const saveToAnki = async () => {
     try {
-      await ankiConnect.addNotes(notes);
+      await addNotes(notes);
     } catch (e) {
       console.log("save error:", e.message);
     }

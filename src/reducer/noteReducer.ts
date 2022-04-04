@@ -1,4 +1,4 @@
-import Chrome from "../api/Chrome";
+import { GetLocal, SetLocal } from "../api/Chrome";
 import { Dispatch } from "redux";
 import Note from "../model/Note";
 
@@ -29,7 +29,7 @@ export const addNote = (note: Note) => {
   return async (dispatch: Dispatch) => {
     let notes: Note[];
     try {
-      notes = (await Chrome.GetLocal(notesStorageKey)) as Note[];
+      notes = (await GetLocal(notesStorageKey)) as Note[];
       if (!notes) {
         notes = [];
       }
@@ -42,14 +42,14 @@ export const addNote = (note: Note) => {
         );
       }
 
-      await Chrome.SetLocal(notesStorageKey, notes);
+      await SetLocal(notesStorageKey, notes);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: NoteReducerActionTypeSet,
-      data: notes
+      data: notes,
     });
   };
 };
@@ -58,20 +58,20 @@ export const deleteNote = (key: string) => {
   return async (dispatch: Dispatch) => {
     let notes: Note[];
     try {
-      notes = (await Chrome.GetLocal(notesStorageKey)) as Note[];
+      notes = (await GetLocal(notesStorageKey)) as Note[];
       if (!notes) {
         return;
       }
 
       notes = notes.filter((note: Note) => note.front !== key);
-      await Chrome.SetLocal(notesStorageKey, notes);
+      await SetLocal(notesStorageKey, notes);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: NoteReducerActionTypeSet,
-      data: notes
+      data: notes,
     });
   };
 };
@@ -79,14 +79,14 @@ export const deleteNote = (key: string) => {
 export const resetNotes = () => {
   return async (dispatch: Dispatch) => {
     try {
-      await Chrome.SetLocal(notesStorageKey, []);
+      await SetLocal(notesStorageKey, []);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: NoteReducerActionTypeSet,
-      data: []
+      data: [],
     });
   };
 };
@@ -95,7 +95,7 @@ export const initNotes = () => {
   return async (dispatch: Dispatch) => {
     let notes;
     try {
-      notes = await Chrome.GetLocal(notesStorageKey);
+      notes = await GetLocal(notesStorageKey);
       if (!notes) {
         notes = [];
       }
@@ -105,7 +105,7 @@ export const initNotes = () => {
 
     dispatch({
       type: NoteReducerActionTypeSet,
-      data: notes
+      data: notes,
     });
   };
 };
@@ -136,7 +136,7 @@ export const initCurrentNote = () => {
   return async (dispatch: Dispatch) => {
     let note;
     try {
-      note = await Chrome.GetLocal(currentNoteStorageKey);
+      note = await GetLocal(currentNoteStorageKey);
       if (!note) {
         note = { front: "", back: "" };
       }
@@ -146,7 +146,7 @@ export const initCurrentNote = () => {
 
     dispatch({
       type: CurrentNoteReducerActionTypeSet,
-      data: note
+      data: note,
     });
   };
 };
@@ -154,14 +154,14 @@ export const initCurrentNote = () => {
 export const setCurrentNote = (note: Note) => {
   return async (dispatch: Dispatch) => {
     try {
-      await Chrome.SetLocal(currentNoteStorageKey, note);
+      await SetLocal(currentNoteStorageKey, note);
     } catch (e) {
       throw e.message;
     }
 
     dispatch({
       type: CurrentNoteReducerActionTypeSet,
-      data: note
+      data: note,
     });
   };
 };

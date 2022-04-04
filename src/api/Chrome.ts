@@ -25,8 +25,8 @@ const GetLocal = async (key: string) => {
     throw new ChromeAPIError("not support chrome.storage.local");
   }
 
-  return new Promise(resolve => {
-    chrome.storage.local.get(key, result => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(key, (result) => {
       resolve(result[key]);
     });
   });
@@ -42,4 +42,4 @@ class ChromeAPIError {
   }
 }
 
-export default { SetLocal, GetLocal };
+export { SetLocal, GetLocal };
