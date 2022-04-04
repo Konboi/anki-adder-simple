@@ -8,8 +8,8 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Route exact path="/" render={() => <AddCard />} />
-      <Route path="/save" render={() => <SavedNote />} />
+      <Route path="/" element={<AddCard />} />
+      <Route path="/save" element={<SavedNote />} />
     </Router>
   );
 };
