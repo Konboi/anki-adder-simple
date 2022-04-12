@@ -26,7 +26,7 @@ export const setCurrentModel = (model: string) => {
   return async (dispatch: Dispatch) => {
     try {
       await SetLocal(CurrentModelStorageKey, model);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -45,7 +45,7 @@ export const initCurrentModel = () => {
       if (!model) {
         model = "";
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 

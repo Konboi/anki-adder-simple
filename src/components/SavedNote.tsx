@@ -15,7 +15,7 @@ const SavedNote = () => {
   const saveToAnki = async () => {
     try {
       await addNotes(notes);
-    } catch (e) {
+    } catch (e: any) {
       console.log("save error:", e.message);
     }
   };

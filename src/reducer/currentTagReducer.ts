@@ -26,7 +26,7 @@ export const setCurrentTag = (tag: string[]) => {
   return async (dispatch: Dispatch) => {
     try {
       await SetLocal(currentTagStorageKey, tag);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -45,7 +45,7 @@ export const initCurrentTag = () => {
       if (!tag) {
         tag = "";
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 

@@ -43,7 +43,7 @@ export const addNote = (note: Note) => {
       }
 
       await SetLocal(notesStorageKey, notes);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -65,7 +65,7 @@ export const deleteNote = (key: string) => {
 
       notes = notes.filter((note: Note) => note.front !== key);
       await SetLocal(notesStorageKey, notes);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -80,7 +80,7 @@ export const resetNotes = () => {
   return async (dispatch: Dispatch) => {
     try {
       await SetLocal(notesStorageKey, []);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -99,7 +99,7 @@ export const initNotes = () => {
       if (!notes) {
         notes = [];
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -140,7 +140,7 @@ export const initCurrentNote = () => {
       if (!note) {
         note = { front: "", back: "" };
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -155,7 +155,7 @@ export const setCurrentNote = (note: Note) => {
   return async (dispatch: Dispatch) => {
     try {
       await SetLocal(currentNoteStorageKey, note);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
