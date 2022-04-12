@@ -29,7 +29,7 @@ export const initDecks = () => {
       if (!decks) {
         decks = [];
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 

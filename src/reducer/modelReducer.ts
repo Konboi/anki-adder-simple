@@ -29,7 +29,7 @@ export const initModels = () => {
       if (!models) {
         models = [];
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 

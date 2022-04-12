@@ -26,7 +26,7 @@ export const setCurrentDeck = (deck: string) => {
   return async (dispatch: Dispatch) => {
     try {
       await SetLocal(CurrentDeckStorageKey, deck);
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
@@ -45,7 +45,7 @@ export const initCurrentDeck = () => {
       if (!deck) {
         deck = "";
       }
-    } catch (e) {
+    } catch (e: any) {
       throw e.message;
     }
 
