@@ -37,13 +37,13 @@ const AddCard = () => {
 
   useEffect(() => {
     const inits = async () => {
-      dispatch(initDecks());
-      dispatch(initModels());
-      dispatch(initNotes());
-      dispatch(initCurrentNote());
-      dispatch(initCurrentDeck());
-      dispatch(initCurrentModel());
-      dispatch(initCurrentTag());
+      dispatch<any>(initDecks());
+      dispatch<any>(initModels());
+      dispatch<any>(initNotes());
+      dispatch<any>(initCurrentNote());
+      dispatch<any>(initCurrentDeck());
+      dispatch<any>(initCurrentModel());
+      dispatch<any>(initCurrentTag());
     };
     inits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +57,7 @@ const AddCard = () => {
     const tags = (event.target as HTMLFormElement).tags.value.trim();
 
     const set = async () => {
-      dispatch(
+      dispatch<any>(
         addNote({
           deckName: deck,
           modelName: model,
@@ -66,9 +66,9 @@ const AddCard = () => {
           tags: tags.split(",")
         })
       );
-      dispatch(setCurrentTag(tags));
+      dispatch<any>(setCurrentTag(tags));
 
-      dispatch(setCurrentNote(new Note()));
+      dispatch<any>(setCurrentNote(new Note()));
 
       (event.target as HTMLFormElement).front.value = "";
       (event.target as HTMLFormElement).back.value = "";
@@ -78,12 +78,12 @@ const AddCard = () => {
 
   const handleDeck = async (event: React.FormEvent, data: DropdownProps) => {
     const deck = data.value as string;
-    await dispatch(setCurrentDeck(deck));
+    await dispatch<any>(setCurrentDeck(deck));
   };
 
   const handleModel = async (event: React.FormEvent, data: DropdownProps) => {
     const model = data.value as string;
-    await dispatch(setCurrentModel(model));
+    await dispatch<any>(setCurrentModel(model));
   };
 
   return (
