@@ -58,7 +58,7 @@ const SavedNote = () => {
                       <Icon
                         name="edit"
                         onClick={() =>
-                          dispatch(
+                          dispatch<any>(
                             setCurrentNote(
                               new Note("", "", note.front, note.back, [])
                             )
@@ -75,7 +75,7 @@ const SavedNote = () => {
                             `Are you sure to delete ${note.front} ?`
                           )
                         ) {
-                          dispatch(deleteNote(note.front));
+                          dispatch<any>(deleteNote(note.front));
                         }
                       }}
                       style={{ paddingLeft: 10 + "px" }}
@@ -94,7 +94,7 @@ const SavedNote = () => {
         <Button
           content="Delete All Notes"
           color="red"
-          onClick={() => dispatch(resetNotes())}
+          onClick={() => dispatch<any>(resetNotes())}
         />
         <Button
           content="Send Notes to Anki"
