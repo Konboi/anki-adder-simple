@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
-    "@types/chrome": "0.0.177",
+    "@types/chrome": "0.0.183",
     "@types/react": "17.0.38",
     "@types/react-dom": "18.0.0",
     "axios": "0.26.0",
