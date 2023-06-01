@@ -15,7 +15,7 @@
     "react-csv": "2.2.2",
     "react-dom": "18.2.0",
     "react-redux": "8.0.7",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "6.11.2",
     "react-scripts": "5.0.1",
     "redux": "4.1.2",
     "redux-thunk": "2.4.2",
