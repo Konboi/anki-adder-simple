@@ -10,7 +10,7 @@
     "@types/chrome": "0.0.244",
     "@types/react": "17.0.65",
     "@types/react-dom": "18.2.7",
-    "axios": "0.27.2",
+    "axios": "1.5.0",
     "react": "18.2.0",
     "react-csv": "2.2.2",
     "react-dom": "18.2.0",
