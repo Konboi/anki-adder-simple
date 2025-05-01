@@ -9,7 +9,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/chrome": "0.0.317",
     "@types/react": "18.3.20",
-    "@types/react-dom": "18.3.5",
+    "@types/react-dom": "18.3.7",
     "axios": "1.8.4",
     "react": "18.3.1",
     "react-csv": "2.2.2",
